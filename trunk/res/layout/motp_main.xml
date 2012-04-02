@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent">
+	<LinearLayout android:layout_width="fill_parent"
+		android:layout_height="fill_parent" android:gravity="center"
+		android:orientation="vertical" android:layout_gravity="center">
+		<TextView android:id="@+id/motpProfileNameTextView"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:text="@string/prof_name_no_colon" android:textSize="20sp" />
+		<LinearLayout android:layout_width="fill_parent"
+			android:layout_height="fill_parent" android:orientation="horizontal"
+			android:gravity="center">
+			<TextView android:id="@+id/motpPinTextView"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"
+				android:text="@string/pin" android:textSize="20sp" />
+			<EditText android:id="@+id/motpPinEditText"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"
+				android:password="true" android:numeric="integer" android:maxEms="4"
+				android:minEms="4" android:singleLine="true" android:maxLength="4" />
+		</LinearLayout>
+		<Button android:id="@+id/motpGenerateButton"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:text="@string/gen_key" android:drawableTop="@drawable/ic_menu_login"
+			android:enabled="false" />
+		<TextView android:id="@+id/motpKeyTextView"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:text="@string/key" android:visibility="invisible"
+			android:textSize="20sp" />
+	</LinearLayout>
+</ScrollView>

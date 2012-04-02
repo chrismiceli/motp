@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<string name="about_dialog_title">关于</string>
+	<string name="add_info">添加配置</string>
+	<string name="app_name">mOTP</string>
+	<string name="about_info">关于</string>
+	<string name="cancel_info">取消</string>
+	<string name="edit_profile">更改种子</string>
+	<string name="delete">删除</string>
+	<string name="error_title">错误!</string>
+	<string name="gen_key">生成密钥</string>
+	<string name="get_secret">浏览秘诀</string>
+	<string name="key">密钥</string>
+	<string name="manage_profile_title">管理配置</string>
+	<string name="new_seed">新种子:  </string>
+	<string name="ok">确定</string>
+	<string name="pin">PIN:</string>
+	<string name="profs_info">配置</string>
+	<string name="prof_name">配置名:</string>
+	<string name="prof_name_no_colon">配置名</string>
+	<string name="prof_no_colon">配置</string>
+	<string name="prof">配置:</string>
+	<string name="secret">秘密</string>
+	<string name="seed_name">种子:</string>
+	<string name="settings">设置</string>
+	<string name="time">时间</string>
+	<string name="time_zone">时区</string>
+	<string name="info">
+		参考:\nmOTP - http://motp.sf.net\nHOTP - RFC
+		4226\nTOTP -
+		http://tools.ietf.org/html/draft-mraihi-totp-timebased-05\n\n编程:\nMichael
+		Miceli\nChristopher
+		Miceli
+    </string>
+	<string name="error">名称必须长于 4 个字符。\n\n种子长度必须是 20 个字符。\n\n不能有重复的配置名。
+	</string>
+	<string name="digit_error">數字必须长于1和小于10个字符。</string>
+	<string name="totp_seed_error">Seed must be numeric.</string>
+	<string name="mOTP">mOTP</string>
+	<string name="HOTP">HOTP</string>
+	<string name="otp_type_prompt">Select an OTP type</string>
+	<string name="sha_type_prompt">Select a SHA type</string>
+	<string name="output_size">數字: </string>
+</resources>
