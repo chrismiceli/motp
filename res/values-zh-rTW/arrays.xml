@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="OTPTypes">
+		<item>mOTP</item>
+		<item>HOTP</item>
+		<item>TOTP</item>
+	</string-array>
+	<string-array name="SHATypes">
+		<item>SHA-1</item>
+		<item>SHA-256</item>
+		<item>SHA-512</item>
+	</string-array>
+</resources>
