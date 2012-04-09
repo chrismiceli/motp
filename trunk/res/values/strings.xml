@@ -5,7 +5,6 @@
     <string name="add_info">Add Profile</string>
     <string name="app_name">mOTP</string>
     <string name="about_info">About</string>
-    <string name="cancel_info">Cancel</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="delete">Delete</string>
     <string name="error_title">Error!</string>
@@ -13,13 +12,10 @@
     <string name="get_secret">View Secret</string>
     <string name="key">Key</string>
     <string name="manage_profile_title">Manage Profile</string>
-    <string name="new_seed">New Seed:  </string>
     <string name="ok">OK</string>
     <string name="pin">PIN:</string>
-    <string name="profs_info">Profiles</string>
     <string name="prof_name">Profile Name:</string>
     <string name="prof_name_no_colon">Profile Name</string>
-    <string name="prof_no_colon">Profile</string>
     <string name="prof">Profile:</string>
     <string name="secret">Secret</string>
     <string name="seed_name">Seed:</string>

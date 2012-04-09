@@ -5,7 +5,7 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
         android:orientation="vertical" >
@@ -38,6 +38,7 @@
                 android:maxLength="4"
                 android:minEms="4"
                 android:numeric="integer"
+                android:inputType="number"
                 android:password="true"
                 android:singleLine="true" />
         </LinearLayout>
@@ -69,8 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/epochLabel"
-                android:textSize="20sp" />
- +                       
+                android:textSize="20sp" />                      
 
             <TextView
                 android:id="@+id/epochValue"
