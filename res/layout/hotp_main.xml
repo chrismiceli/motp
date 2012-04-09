@@ -1,18 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent" android:layout_height="fill_parent">
-	<LinearLayout android:layout_width="fill_parent"
-		android:layout_height="fill_parent" android:orientation="vertical"
-		android:gravity="center" android:layout_gravity="center">
-		<TextView android:id="@+id/hotpProfileNameTextView"
-			android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:text="@string/prof_name_no_colon" android:textSize="20sp" />
-		<Button android:text="@string/gen_key" android:id="@+id/hotpGenerateButton"
-			android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:drawableTop="@drawable/ic_menu_login" />
-		<TextView android:text="@string/key" android:id="@+id/hotpKeyTextView"
-			android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:visibility="invisible" android:textSize="20sp" />
-	</LinearLayout>
-</ScrollView>
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/hotpProfileNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/prof_name_no_colon"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/hotpGenerateButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/ic_menu_login"
+            android:text="@string/gen_key" />
+
+        <TextView
+            android:id="@+id/hotpKeyTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/key"
+            android:textSize="20sp"
+            android:visibility="invisible" />
+    </LinearLayout>
+
+</ScrollView>

@@ -1,36 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent" android:layout_height="fill_parent">
-	<LinearLayout android:layout_width="fill_parent"
-		android:layout_height="fill_parent" android:orientation="vertical"
-		android:gravity="center_horizontal">
-		<TextView android:id="@+id/motpProfileTextView"
-			android:layout_width="fill_parent" android:layout_height="wrap_content"
-			android:text="@string/prof_name" />
-		<EditText android:id="@+id/motpProfileEditText"
-			android:layout_width="fill_parent" android:layout_height="wrap_content"
-			android:singleLine="true" android:layout_marginLeft="5dip"
-			android:layout_marginRight="5dip" />
-		<TextView android:id="@+id/motpSeedTextView"
-			android:layout_width="fill_parent" android:layout_height="wrap_content"
-			android:text="@string/seed_name" />
-		<EditText android:id="@+id/motpSeedEditText"
-			android:layout_width="fill_parent" android:layout_height="wrap_content"
-			android:singleLine="true" android:layout_marginLeft="5dip"
-			android:layout_marginRight="5dip" />
-		<LinearLayout android:layout_width="fill_parent"
-			android:layout_height="fill_parent" android:orientation="horizontal"
-			android:gravity="center_horizontal">
-			<TextView android:id="@+id/motpTimeZoneTextView"
-				android:layout_width="wrap_content" android:layout_height="wrap_content"
-				android:text="@string/time_zone" android:textSize="20sp" />
-			<Spinner android:id="@+id/motpTimeZoneSpinner"
-				android:layout_width="wrap_content" android:layout_height="wrap_content"
-				android:drawSelectorOnTop="true" android:prompt="@string/time_zone"
-				android:layout_marginLeft="5dip" android:layout_marginRight="5dip" />
-		</LinearLayout>
-		<Button android:id="@+id/motpSaveButton" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:text="@string/add_info"
-			android:layout_marginLeft="5dip" />
-	</LinearLayout>
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/motpProfileTextView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/prof_name" />
+
+        <EditText
+            android:id="@+id/motpProfileEditText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="5dip"
+            android:singleLine="true" />
+
+        <TextView
+            android:id="@+id/motpSeedTextView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/seed_name" />
+
+        <EditText
+            android:id="@+id/motpSeedEditText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="5dip"
+            android:singleLine="true" />
+
+        <TextView
+            android:id="@+id/motpSeedNotes"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/seed_notes" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/motpTimeZoneTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/time_zone"
+                android:textSize="20sp" />
+
+            <Spinner
+                android:id="@+id/motpTimeZoneSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dip"
+                android:layout_marginRight="5dip"
+                android:drawSelectorOnTop="true"
+                android:prompt="@string/time_zone" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/motpSaveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dip"
+            android:text="@string/add_info" />
+    </LinearLayout>
+
 </ScrollView>
