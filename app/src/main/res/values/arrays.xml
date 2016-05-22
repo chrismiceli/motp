@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string-array name="OTPTypes">
         <item>mOTP</item>
         <item>HOTP</item>
@@ -61,5 +60,4 @@
         <item>30 Seconds</item>
         <item>60 Seconds</item>
     </string-array>
-
 </resources>

@@ -25,17 +25,14 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 public class Profiles extends AppCompatActivity {
+    public static final String EDITING_KEY = "Editing";
     private static final int MENU_ADD = 1;
+    private static final int MENU_ABOUT = 2;
     private static final int CONTEXT_DELETE = 0;
     private static final int CONTEXT_EDIT = 1;
     private static final int CONTEXT_SECRET = 2;
-    public static final String EDITING_KEY = "Editing";
     private static final int DIALOG_OTP_TYPES = 0;
-    private Cursor profilesCursor;
-    private DBAdapter db;
-    private ArrayAdapter<String> listAdapter;
-    private SharedPreferences preferences;
-    private int count;
+    private static final int DIALOG_ABOUT = 1;
     private final DialogInterface.OnClickListener otpTypeClickListener = new DialogInterface.OnClickListener() {
         public void onClick(DialogInterface dialog, int which) {
             final Intent intent = new Intent(Profiles.this, ProfileSetup.class);
@@ -55,6 +52,10 @@ public class Profiles extends AppCompatActivity {
             }
         }
     };
+    private Cursor profilesCursor;
+    private DBAdapter db;
+    private ArrayAdapter<String> listAdapter;
+    private SharedPreferences preferences;
     private final OnItemClickListener profilesGridListener = new OnItemClickListener() {
         public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
             db.open();
@@ -85,6 +86,7 @@ public class Profiles extends AppCompatActivity {
             startActivity(intent);
         }
     };
+    private int count;
 
     @Override
     protected void onResume() {
@@ -112,22 +114,33 @@ public class Profiles extends AppCompatActivity {
     @Override
     protected Dialog onCreateDialog(int id) {
         Dialog dialog;
+        AlertDialog.Builder builder;
         if (id == DIALOG_OTP_TYPES) {
             final CharSequence[] items = getResources().getStringArray(R.array.OTPTypes);
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.otp_type_prompt);
             builder.setSingleChoiceItems(items, -1, otpTypeClickListener);
+            dialog = builder.create();
+        } else if (id == DIALOG_ABOUT) {
+            builder = new AlertDialog.Builder(this).setTitle(R.string.about_dialog_title)
+                    .setMessage(R.string.info)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) { }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_info);
             dialog = builder.create();
         } else {
             dialog = super.onCreateDialog(id);
         }
+
         return dialog;
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        menu.add(0, MENU_ADD, 0, R.string.add_info).setIcon(R.drawable.ic_menu_add);
+        menu.add(0, MENU_ADD, 0, R.string.add_info);
+        menu.add(0, MENU_ABOUT, 0, R.string.about_info);
         return true;
     }
 
@@ -136,6 +149,9 @@ public class Profiles extends AppCompatActivity {
         switch (item.getItemId()) {
             case MENU_ADD:
                 showDialog(DIALOG_OTP_TYPES);
+                return true;
+            case MENU_ABOUT:
+                showDialog(DIALOG_ABOUT);
                 return true;
         }
 
@@ -158,7 +174,7 @@ public class Profiles extends AppCompatActivity {
         ListView profilesList = (ListView) findViewById(R.id.profilesList);
         listAdapter = new ArrayAdapter(this, R.layout.profile_list_item, R.id.list_content, profiles);
         listAdapter.notifyDataSetChanged();
-        if(profilesList != null) {
+        if (profilesList != null) {
             profilesList.setAdapter(listAdapter);
             profilesList.setOnItemClickListener(profilesGridListener);
             profilesList.setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
@@ -168,7 +184,7 @@ public class Profiles extends AppCompatActivity {
                     menu.add(0, CONTEXT_DELETE, 0, R.string.delete);
                     menu.add(0, CONTEXT_EDIT, 0, R.string.edit_profile);
                     menu.add(0, CONTEXT_SECRET, 0, R.string.get_secret);
-                    }
+                }
             });
         }
     }
@@ -211,7 +227,7 @@ public class Profiles extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else {
-                    listAdapter.remove(c.getString(col_index));
+                    listAdapter.remove(profName);
                     listAdapter.notifyDataSetChanged();
                 }
 

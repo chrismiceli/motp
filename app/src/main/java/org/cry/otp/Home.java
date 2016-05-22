@@ -82,8 +82,7 @@ public class Home extends AppCompatActivity {
         public void onClick(View v) {
             Spinner SHATypeSpinner = (Spinner) findViewById(R.id.totpSHATypeSpinner);
             int shaType = SHATypeSpinner.getSelectedItemPosition();
-            String key = TOTP.gen(activeSeed, activeDigits, shaType,
-                    activeZone, activeTimeInterval);
+            String key = TOTP.gen(activeSeed, activeDigits, shaType, activeZone, activeTimeInterval);
             TextView keyTextView = (TextView) findViewById(R.id.totpKeyTextView);
             if(keyTextView != null) {
                 keyTextView.setText(key);

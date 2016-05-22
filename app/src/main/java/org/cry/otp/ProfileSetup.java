@@ -48,7 +48,7 @@ public class ProfileSetup extends AppCompatActivity {
             }
 
             if (!editing) {
-                insertIntoDatabaseAndFinish(name, seed, Home.OTP_TYPE_MOTP, 0, 0, time_zone, 30);
+                insertIntoDatabaseAndFinish(name, seed, Home.OTP_TYPE_MOTP, 0, time_zone, 30);
             } else {
                 updateIntoDatabaseAndFinish(name, seed, Home.OTP_TYPE_MOTP, 0, time_zone, 30);
             }
@@ -111,7 +111,7 @@ public class ProfileSetup extends AppCompatActivity {
             }
 
             if (!editing) {
-                insertIntoDatabaseAndFinish(name, seed, Home.OTP_TYPE_HOTP, 0, digits, "", 30);
+                insertIntoDatabaseAndFinish(name, seed, Home.OTP_TYPE_HOTP, digits, "", 30);
             } else {
                 updateIntoDatabaseAndFinish(name, seed, Home.OTP_TYPE_HOTP, digits, "", 30);
             }
@@ -178,7 +178,7 @@ public class ProfileSetup extends AppCompatActivity {
             }
 
             if (!editing) {
-                insertIntoDatabaseAndFinish(name, seed, Home.OTP_TYPE_TOTP, 0, digits, "", timeInterval);
+                insertIntoDatabaseAndFinish(name, seed, Home.OTP_TYPE_TOTP, digits, "", timeInterval);
             } else {
                 updateIntoDatabaseAndFinish(name, seed, Home.OTP_TYPE_TOTP, digits, "", timeInterval);
             }
@@ -500,7 +500,7 @@ public class ProfileSetup extends AppCompatActivity {
     }
 
     private void insertIntoDatabaseAndFinish(String name, String seed,
-                                             int otpType, int count, int digits, String time_zone,
+                                             int otpType, int digits, String time_zone,
                                              int time_interval) {
         db.open();
         int rowId = (int) db.insertProfile(name, seed, otpType, digits, time_zone, time_interval);
