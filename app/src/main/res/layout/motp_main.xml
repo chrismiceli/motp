@@ -51,7 +51,7 @@
                 android:id="@+id/motpPinEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="@string/pin"
+                android:hint="@string/pin_no_colon"
                 android:importantForAutofill="no"
                 android:inputType="numberPassword"
                 android:maxEms="4"

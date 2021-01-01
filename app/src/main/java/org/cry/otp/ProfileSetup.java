@@ -64,10 +64,15 @@ public class ProfileSetup extends AppCompatActivity {
             String name = profName.getText().toString();
             String seed = profSeed.getText().toString();
             boolean hexadecimalSeed = seedTypeSpinner.getSelectedItemPosition() == 0;
-            int digits = Integer.parseInt(profDigit.getText().toString());
+            int digits;
+            try {
+                digits = Integer.parseInt(profDigit.getText().toString());
+            } catch (NumberFormatException exception) {
+                digits = 0;
+            }
             if (hexadecimalSeed) {
                 try {
-                    if (seed.length() % 2 != 0) {
+                    if (seed.length() % 2 != 0 || seed.length() == 0) {
                         throw new NumberFormatException();
                     }
 
@@ -129,7 +134,12 @@ public class ProfileSetup extends AppCompatActivity {
             Spinner timeIntervalSpinner = (Spinner) findViewById(R.id.totpTimeIntervalSpinner);
             String name = profName.getText().toString();
             String seed = profSeed.getText().toString();
-            int digits = Integer.parseInt(profDigits.getText().toString());
+            int digits;
+            try {
+                digits = Integer.parseInt(profDigits.getText().toString());
+            } catch (NumberFormatException exception) {
+                digits = 0;
+            }
             boolean hexadecimalSeed = seedTypeSpinner.getSelectedItemPosition() == 0;
             int timeInterval = timeIntervalSpinner.getSelectedItemPosition() == 0 ? 30 : 60;
             if (digits <= 0 || digits >= 10) {
@@ -142,7 +152,7 @@ public class ProfileSetup extends AppCompatActivity {
 
             if (hexadecimalSeed) {
                 try {
-                    if (seed.length() % 2 != 0) {
+                    if (seed.length() % 2 != 0 || seed.length() == 0) {
                         throw new NumberFormatException();
                     }
 

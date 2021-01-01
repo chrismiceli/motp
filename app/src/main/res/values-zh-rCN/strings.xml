@@ -17,7 +17,7 @@
     <string name="prof_name_no_colon">配置名</string>
     <string name="secret">秘密</string>
     <string name="seed_name">数种子:</string>
-    <string name="seed_notes">请注意，这是生成数种子的密钥。必须包含20个字符，只能使用字母数字字符 - 无符号\r\n\r\n为了找到密钥，配置后，长按配置，然后选择“查看秘密”</string>
+    <string name="seed_notes">请注意，这是生成数种子的密钥。必须包含20个字符，只能使用字母数字字符 - 无符号\n\n为了找到密钥，配置后，长按配置，然后选择“查看秘密”</string>
     <string name="time">时间</string>
     <string name="time_zone">时区</string>
     <string name="epochLabel">时代:</string>
@@ -36,4 +36,7 @@
     <string name="save">保存</string>
     <string name="time_interval">时间间隔</string>
     <string name="six">6</string>
+    <string name="seed_name_no_colon">数种子</string>
+    <string name="pin_no_colon">密码</string>
+    <string name="output_size_no_colon">數字</string>
 </resources>
