@@ -2,6 +2,8 @@ package org.cry.otp;
 
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -39,6 +41,7 @@ public class Home extends AppCompatActivity {
     private int activeTimeInterval = 30;
     private SharedPreferences preferences;
     private DBAdapter db;
+    private ClipboardManager clipboardManager;
 
     private final OnClickListener generateMOTPListener = v -> {
         TextView pinEditText = (TextView) findViewById(R.id.motpPinEditText);
@@ -51,6 +54,9 @@ public class Home extends AppCompatActivity {
         if (keyTextView != null) {
             keyTextView.setText(key);
             keyTextView.setVisibility(View.VISIBLE);
+            if (clipboardManager != null) {
+                clipboardManager.setPrimaryClip(ClipData.newPlainText(activeProfName, key));
+            }
         }
 
         pinEditText.setText("");
@@ -65,6 +71,9 @@ public class Home extends AppCompatActivity {
             if (keyTextView != null) {
                 keyTextView.setText(key);
                 keyTextView.setVisibility(View.VISIBLE);
+                if (clipboardManager != null) {
+                    clipboardManager.setPrimaryClip(ClipData.newPlainText(activeProfName, key));
+                }
             }
 
             SharedPreferences.Editor ed = preferences.edit();
@@ -85,6 +94,9 @@ public class Home extends AppCompatActivity {
         if (keyTextView != null) {
             keyTextView.setText(key);
             keyTextView.setVisibility(View.VISIBLE);
+            if (clipboardManager != null) {
+                clipboardManager.setPrimaryClip(ClipData.newPlainText(activeProfName, key));
+            }
         }
     };
 
@@ -106,6 +118,7 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        clipboardManager = (ClipboardManager)this.getSystemService(CLIPBOARD_SERVICE);
         if (activeOTPType == OTP_TYPE_HOTP) {
             // HOTP
             setContentView(R.layout.hotp_main);
