@@ -49,7 +49,7 @@ public class Home extends AppCompatActivity {
 
             String key = mOTP.gen(pinEditText.getText().toString(), activeSeed, activeZone);
             TextView keyTextView = (TextView) findViewById(R.id.motpKeyTextView);
-            if(keyTextView != null) {
+            if (keyTextView != null) {
                 keyTextView.setText(key);
                 keyTextView.setVisibility(View.VISIBLE);
             }
@@ -64,7 +64,7 @@ public class Home extends AppCompatActivity {
             HOTP hotp = new HOTP();
             String key = hotp.gen(activeSeed, activeCount, activeDigits);
             TextView keyTextView = (TextView) findViewById(R.id.hotpKeyTextView);
-            if(keyTextView != null) {
+            if (keyTextView != null) {
                 keyTextView.setText(key);
                 keyTextView.setVisibility(View.VISIBLE);
             }
@@ -85,7 +85,7 @@ public class Home extends AppCompatActivity {
             int shaType = SHATypeSpinner.getSelectedItemPosition();
             String key = TOTP.gen(activeSeed, activeDigits, shaType, activeZone, activeTimeInterval);
             TextView keyTextView = (TextView) findViewById(R.id.totpKeyTextView);
-            if(keyTextView != null) {
+            if (keyTextView != null) {
                 keyTextView.setText(key);
                 keyTextView.setVisibility(View.VISIBLE);
             }

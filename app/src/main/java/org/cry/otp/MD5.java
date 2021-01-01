@@ -9,27 +9,27 @@
  * modify it under the terms of the GNU Library General Public
  * License as published by the Free Software Foundation; either
  * version 2 of the License, or (at your option) any later version.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Library General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the Free
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- * 
+ *
  * See http://www.cs.hut.fi/~santtu/java/ for more information on this
  * class.
- * 
+ *
  * This is rather straight re-implementation of the reference implementation
  * given in RFC1321 by RSA.
  *
  * Passes MD5 test suite as defined in RFC1321.
  *
  *
- * This Java class has been derived from the RSA Data Security, Inc. MD5 
- * Message-Digest Algorithm and its reference implementation. 
+ * This Java class has been derived from the RSA Data Security, Inc. MD5
+ * Message-Digest Algorithm and its reference implementation.
  *
  *
  * Revision 1.6 minor changes for j2me, 2003, Matthias Straub

@@ -126,7 +126,8 @@ public class Profiles extends AppCompatActivity {
             builder = new AlertDialog.Builder(this).setTitle(R.string.about_dialog_title)
                     .setMessage(R.string.info)
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) { }
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
                     })
                     .setIcon(android.R.drawable.ic_dialog_info);
             dialog = builder.create();
