@@ -2,11 +2,11 @@ package org.cry.otp;
 
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -18,6 +18,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import java.util.Date;
 import java.util.TimeZone;
@@ -38,23 +41,25 @@ public class Home extends AppCompatActivity {
     private int activeTimeInterval = 30;
     private SharedPreferences preferences;
     private DBAdapter db;
+    private ClipboardManager clipboardManager;
 
-    private final OnClickListener generateMOTPListener = new OnClickListener() {
-        public void onClick(View v) {
-            TextView pinEditText = (TextView) findViewById(R.id.motpPinEditText);
-            if (pinEditText != null && pinEditText.getText().length() != 4) {
-                return;
-            }
-
-            String key = mOTP.gen(pinEditText.getText().toString(), activeSeed, activeZone);
-            TextView keyTextView = (TextView) findViewById(R.id.motpKeyTextView);
-            if(keyTextView != null) {
-                keyTextView.setText(key);
-                keyTextView.setVisibility(View.VISIBLE);
-            }
-
-            pinEditText.setText("");
+    private final OnClickListener generateMOTPListener = v -> {
+        TextView pinEditText = (TextView) findViewById(R.id.motpPinEditText);
+        if (pinEditText != null && pinEditText.getText().length() != 4) {
+            return;
         }
+
+        String key = mOTP.gen(pinEditText.getText().toString(), activeSeed, activeZone);
+        TextView keyTextView = (TextView) findViewById(R.id.motpKeyTextView);
+        if (keyTextView != null) {
+            keyTextView.setText(key);
+            keyTextView.setVisibility(View.VISIBLE);
+            if (clipboardManager != null) {
+                clipboardManager.setPrimaryClip(ClipData.newPlainText(activeProfName, key));
+            }
+        }
+
+        pinEditText.setText("");
     };
 
     private final OnClickListener generateHOTPListener = new OnClickListener() {
@@ -63,9 +68,12 @@ public class Home extends AppCompatActivity {
             HOTP hotp = new HOTP();
             String key = hotp.gen(activeSeed, activeCount, activeDigits);
             TextView keyTextView = (TextView) findViewById(R.id.hotpKeyTextView);
-            if(keyTextView != null) {
+            if (keyTextView != null) {
                 keyTextView.setText(key);
                 keyTextView.setVisibility(View.VISIBLE);
+                if (clipboardManager != null) {
+                    clipboardManager.setPrimaryClip(ClipData.newPlainText(activeProfName, key));
+                }
             }
 
             SharedPreferences.Editor ed = preferences.edit();
@@ -78,15 +86,16 @@ public class Home extends AppCompatActivity {
         }
     };
 
-    private final OnClickListener generateTOTPListener = new OnClickListener() {
-        public void onClick(View v) {
-            Spinner SHATypeSpinner = (Spinner) findViewById(R.id.totpSHATypeSpinner);
-            int shaType = SHATypeSpinner.getSelectedItemPosition();
-            String key = TOTP.gen(activeSeed, activeDigits, shaType, activeZone, activeTimeInterval);
-            TextView keyTextView = (TextView) findViewById(R.id.totpKeyTextView);
-            if(keyTextView != null) {
-                keyTextView.setText(key);
-                keyTextView.setVisibility(View.VISIBLE);
+    private final OnClickListener generateTOTPListener = v -> {
+        Spinner SHATypeSpinner = (Spinner) findViewById(R.id.totpSHATypeSpinner);
+        int shaType = SHATypeSpinner.getSelectedItemPosition();
+        String key = TOTP.gen(activeSeed, activeDigits, shaType, activeTimeInterval);
+        TextView keyTextView = (TextView) findViewById(R.id.totpKeyTextView);
+        if (keyTextView != null) {
+            keyTextView.setText(key);
+            keyTextView.setVisibility(View.VISIBLE);
+            if (clipboardManager != null) {
+                clipboardManager.setPrimaryClip(ClipData.newPlainText(activeProfName, key));
             }
         }
     };
@@ -109,6 +118,7 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        clipboardManager = (ClipboardManager)this.getSystemService(CLIPBOARD_SERVICE);
         if (activeOTPType == OTP_TYPE_HOTP) {
             // HOTP
             setContentView(R.layout.hotp_main);
@@ -192,11 +202,7 @@ public class Home extends AppCompatActivity {
     private class PinTextWatcher implements TextWatcher {
         public void afterTextChanged(Editable s) {
             Button generateButton = (Button) findViewById(R.id.motpGenerateButton);
-            if (s.length() == 4) {
-                generateButton.setEnabled(true);
-            } else {
-                generateButton.setEnabled(false);
-            }
+            generateButton.setEnabled(s.length() == 4);
         }
 
         public void beforeTextChanged(CharSequence s, int start, int count,

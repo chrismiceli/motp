@@ -5,14 +5,15 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class ProfileSetup extends AppCompatActivity {
     private SharedPreferences preferences;
@@ -63,10 +64,15 @@ public class ProfileSetup extends AppCompatActivity {
             String name = profName.getText().toString();
             String seed = profSeed.getText().toString();
             boolean hexadecimalSeed = seedTypeSpinner.getSelectedItemPosition() == 0;
-            int digits = Integer.parseInt(profDigit.getText().toString());
+            int digits;
+            try {
+                digits = Integer.parseInt(profDigit.getText().toString());
+            } catch (NumberFormatException exception) {
+                digits = 0;
+            }
             if (hexadecimalSeed) {
                 try {
-                    if (seed.length() % 2 != 0) {
+                    if (seed.length() % 2 != 0 || seed.length() == 0) {
                         throw new NumberFormatException();
                     }
 
@@ -86,12 +92,12 @@ public class ProfileSetup extends AppCompatActivity {
                     return;
                 }
             } else {
-                String newSeed = "";
+                StringBuilder newSeed = new StringBuilder();
                 for (int i = 0; i < seed.length(); i++) {
-                    newSeed += Integer.toHexString((int) seed.charAt(i));
+                    newSeed.append(Integer.toHexString((int) seed.charAt(i)));
                 }
 
-                seed = newSeed;
+                seed = newSeed.toString();
             }
 
             if (digits <= 0 || digits >= 10) {
@@ -128,7 +134,12 @@ public class ProfileSetup extends AppCompatActivity {
             Spinner timeIntervalSpinner = (Spinner) findViewById(R.id.totpTimeIntervalSpinner);
             String name = profName.getText().toString();
             String seed = profSeed.getText().toString();
-            int digits = Integer.parseInt(profDigits.getText().toString());
+            int digits;
+            try {
+                digits = Integer.parseInt(profDigits.getText().toString());
+            } catch (NumberFormatException exception) {
+                digits = 0;
+            }
             boolean hexadecimalSeed = seedTypeSpinner.getSelectedItemPosition() == 0;
             int timeInterval = timeIntervalSpinner.getSelectedItemPosition() == 0 ? 30 : 60;
             if (digits <= 0 || digits >= 10) {
@@ -141,7 +152,7 @@ public class ProfileSetup extends AppCompatActivity {
 
             if (hexadecimalSeed) {
                 try {
-                    if (seed.length() % 2 != 0) {
+                    if (seed.length() % 2 != 0 || seed.length() == 0) {
                         throw new NumberFormatException();
                     }
 
@@ -161,12 +172,12 @@ public class ProfileSetup extends AppCompatActivity {
                     return;
                 }
             } else {
-                String newSeed = "";
+                StringBuilder newSeed = new StringBuilder();
                 for (int i = 0; i < seed.length(); i++) {
-                    newSeed += Integer.toHexString((int) seed.charAt(i));
+                    newSeed.append(Integer.toHexString((int) seed.charAt(i)));
                 }
 
-                seed = newSeed;
+                seed = newSeed.toString();
             }
 
             if (checkIfInDatabase(name)) {
@@ -218,8 +229,6 @@ public class ProfileSetup extends AppCompatActivity {
                 return "GMT-02:00";
             case 14:
                 return "GMT-01:00";
-            case 15:
-                return "GMT";
             case 16:
                 return "GMT+01:00";
             case 17:

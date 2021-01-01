@@ -12,26 +12,26 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <android.support.design.widget.AppBarLayout
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/AppTheme.AppBarOverlay">
 
-            <android.support.v7.widget.Toolbar
+            <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
-        </android.support.design.widget.AppBarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
         <TextView
-            android:id="@+id/motpProfileTextView"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
             android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="10dp"
+            android:labelFor="@+id/motpProfileEditText"
             android:text="@string/prof_name"
             android:textSize="28sp" />
 
@@ -41,38 +41,48 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+            android:hint="@string/prof_name_no_colon"
+            android:importantForAutofill="no"
             android:inputType="text"
             android:singleLine="true"
             android:textSize="28sp" />
 
         <TextView
-            android:id="@+id/motpSeedTextView"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
             android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="10dp"
+            android:labelFor="@+id/motpSeedEditText"
             android:text="@string/seed_name"
             android:textSize="28sp" />
-
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/motpSeedEditTextContainer"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            app:counterEnabled="true"
+            app:counterMaxLength="20"
+            >
         <EditText
             android:id="@+id/motpSeedEditText"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+            android:hint="@string/seed_name_no_colon"
+            android:importantForAutofill="no"
             android:inputType="text"
             android:singleLine="true"
             android:textSize="28sp" />
+        </com.google.android.material.textfield.TextInputLayout >
 
         <TextView
-            android:id="@+id/motpSeedNotes"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
             android:text="@string/seed_notes"
             android:textSize="16sp" />
 
@@ -84,7 +94,6 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/motpTimeZoneTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/time_zone"
@@ -94,9 +103,9 @@
                 android:id="@+id/motpTimeZoneSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
+                android:layout_marginBottom="10dp"
                 android:prompt="@string/time_zone" />
         </LinearLayout>
 
