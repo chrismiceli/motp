@@ -87,12 +87,12 @@ public class ProfileSetup extends AppCompatActivity {
                     return;
                 }
             } else {
-                String newSeed = "";
+                StringBuilder newSeed = new StringBuilder();
                 for (int i = 0; i < seed.length(); i++) {
-                    newSeed += Integer.toHexString((int) seed.charAt(i));
+                    newSeed.append(Integer.toHexString((int) seed.charAt(i)));
                 }
 
-                seed = newSeed;
+                seed = newSeed.toString();
             }
 
             if (digits <= 0 || digits >= 10) {
@@ -162,12 +162,12 @@ public class ProfileSetup extends AppCompatActivity {
                     return;
                 }
             } else {
-                String newSeed = "";
+                StringBuilder newSeed = new StringBuilder();
                 for (int i = 0; i < seed.length(); i++) {
-                    newSeed += Integer.toHexString((int) seed.charAt(i));
+                    newSeed.append(Integer.toHexString((int) seed.charAt(i)));
                 }
 
-                seed = newSeed;
+                seed = newSeed.toString();
             }
 
             if (checkIfInDatabase(name)) {
@@ -219,8 +219,6 @@ public class ProfileSetup extends AppCompatActivity {
                 return "GMT-02:00";
             case 14:
                 return "GMT-01:00";
-            case 15:
-                return "GMT";
             case 16:
                 return "GMT+01:00";
             case 17:

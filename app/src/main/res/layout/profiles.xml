@@ -26,6 +26,6 @@
         android:id="@+id/profilesList"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp" />
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp" />
 </LinearLayout>

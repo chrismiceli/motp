@@ -16,7 +16,7 @@ class HOTP {
         Mac hmacSha1;
         try {
             hmacSha1 = Mac.getInstance("HmacSHA1");
-        } catch (NoSuchAlgorithmException nsae) {
+        } catch (NoSuchAlgorithmException exception) {
             hmacSha1 = Mac.getInstance("HMAC-SHA-1");
         }
         SecretKeySpec macKey = new SecretKeySpec(keyBytes, "RAW");
@@ -27,7 +27,7 @@ class HOTP {
     static private String generateOTP(byte[] secret, long movingFactor, int codeDigits)
             throws NoSuchAlgorithmException, InvalidKeyException {
         // put movingFactor value into text byte array
-        String result;
+        StringBuilder result;
         byte[] text = new byte[8];
         for (int i = text.length - 1; i >= 0; i--) {
             text[i] = (byte) (movingFactor & 0xff);
@@ -45,11 +45,11 @@ class HOTP {
 
         int otp = (int) (binary % Math.pow(10, codeDigits));
         // int otp = binary % DIGITS_POWER[codeDigits];
-        result = Integer.toString(otp);
+        result = new StringBuilder(Integer.toString(otp));
         while (result.length() < codeDigits) {
-            result = "0" + result;
+            result.append("0");
         }
-        return result;
+        return result.toString();
     }
 
     public String gen(String seed, int count, int digits) {

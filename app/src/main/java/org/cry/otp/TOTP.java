@@ -57,20 +57,20 @@ class TOTP {
         return ret;
     }
 
-    public static String gen(String key, int returnDigits, int shaType, String timeZone, int timeInterval) {
+    public static String gen(String key, int returnDigits, int shaType, int timeInterval) {
         long T0 = 0;
 
         long testTime = System.currentTimeMillis() / 1000L;
         long T = (testTime - T0) / (long) timeInterval;
-        String time = Long.toHexString(T).toUpperCase();
+        StringBuilder time = new StringBuilder(Long.toHexString(T).toUpperCase());
         while (time.length() < 16)
-            time = "0" + time;
+            time.append("0");
 
-        String result;
+        StringBuilder result;
         byte[] hash;
 
         // Get the HEX in a Byte[]
-        byte[] msg = hexStr2Bytes(time);
+        byte[] msg = hexStr2Bytes(time.toString());
 
         // Adding one byte to get the right conversion
         // key = encodeHexString(key);
@@ -101,10 +101,10 @@ class TOTP {
 
         int otp = binary % (int) (Math.pow(10, returnDigits));
 
-        result = Integer.toString(otp);
+        result = new StringBuilder(Integer.toString(otp));
         while (result.length() < returnDigits) {
-            result = "0" + result;
+            result.append("0");
         }
-        return result;
+        return result.toString();
     }
 }

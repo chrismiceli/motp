@@ -41,9 +41,9 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/motpPinTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:labelFor="@+id/motpPinEditText"
                 android:text="@string/pin"
                 android:textSize="24sp" />
 
@@ -51,6 +51,8 @@
                 android:id="@+id/motpPinEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:hint="@string/pin"
+                android:importantForAutofill="no"
                 android:inputType="numberPassword"
                 android:maxEms="4"
                 android:maxLength="4"
@@ -81,7 +83,6 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/epochLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/epochLabel"

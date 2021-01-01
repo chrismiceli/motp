@@ -26,32 +26,34 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <TextView
-            android:id="@+id/hotpProfileTextView"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
             android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="10dp"
+            android:labelFor="@+id/hotpProfileEditText"
             android:text="@string/prof_name"
             android:textSize="28sp" />
 
         <EditText
             android:id="@+id/hotpProfileEditText"
+            android:hint="@string/prof_name"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+            android:importantForAutofill="no"
             android:inputType="text"
             android:singleLine="true"
             android:textSize="28sp" />
 
         <TextView
-            android:id="@+id/hotpSeedTextView"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
             android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="10dp"
+            android:labelFor="@+id/hotpSeedEditText"
             android:text="@string/seed_name"
             android:textSize="28sp" />
 
@@ -61,6 +63,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+            android:hint="@string/seed_name"
+            android:importantForAutofill="no"
             android:inputType="text"
             android:singleLine="true"
             android:textSize="28sp" />
@@ -72,9 +76,9 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/hotpOutputSizeTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:labelFor="@+id/hotpOutputSizeEditText"
                 android:text="@string/output_size"
                 android:textSize="24sp" />
 
@@ -82,8 +86,10 @@
                 android:id="@+id/hotpOutputSizeEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
                 android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:hint="@string/output_size"
+                android:importantForAutofill="no"
                 android:inputType="number"
                 android:maxEms="2"
                 android:maxLength="2"
@@ -96,10 +102,10 @@
             android:id="@+id/hotpSeedTypeSpinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
             android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="10dp"
             android:prompt="@string/seed_type" />
 
         <Button

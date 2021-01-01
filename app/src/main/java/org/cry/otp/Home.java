@@ -40,22 +40,20 @@ public class Home extends AppCompatActivity {
     private SharedPreferences preferences;
     private DBAdapter db;
 
-    private final OnClickListener generateMOTPListener = new OnClickListener() {
-        public void onClick(View v) {
-            TextView pinEditText = (TextView) findViewById(R.id.motpPinEditText);
-            if (pinEditText != null && pinEditText.getText().length() != 4) {
-                return;
-            }
-
-            String key = mOTP.gen(pinEditText.getText().toString(), activeSeed, activeZone);
-            TextView keyTextView = (TextView) findViewById(R.id.motpKeyTextView);
-            if (keyTextView != null) {
-                keyTextView.setText(key);
-                keyTextView.setVisibility(View.VISIBLE);
-            }
-
-            pinEditText.setText("");
+    private final OnClickListener generateMOTPListener = v -> {
+        TextView pinEditText = (TextView) findViewById(R.id.motpPinEditText);
+        if (pinEditText != null && pinEditText.getText().length() != 4) {
+            return;
         }
+
+        String key = mOTP.gen(pinEditText.getText().toString(), activeSeed, activeZone);
+        TextView keyTextView = (TextView) findViewById(R.id.motpKeyTextView);
+        if (keyTextView != null) {
+            keyTextView.setText(key);
+            keyTextView.setVisibility(View.VISIBLE);
+        }
+
+        pinEditText.setText("");
     };
 
     private final OnClickListener generateHOTPListener = new OnClickListener() {
@@ -79,16 +77,14 @@ public class Home extends AppCompatActivity {
         }
     };
 
-    private final OnClickListener generateTOTPListener = new OnClickListener() {
-        public void onClick(View v) {
-            Spinner SHATypeSpinner = (Spinner) findViewById(R.id.totpSHATypeSpinner);
-            int shaType = SHATypeSpinner.getSelectedItemPosition();
-            String key = TOTP.gen(activeSeed, activeDigits, shaType, activeZone, activeTimeInterval);
-            TextView keyTextView = (TextView) findViewById(R.id.totpKeyTextView);
-            if (keyTextView != null) {
-                keyTextView.setText(key);
-                keyTextView.setVisibility(View.VISIBLE);
-            }
+    private final OnClickListener generateTOTPListener = v -> {
+        Spinner SHATypeSpinner = (Spinner) findViewById(R.id.totpSHATypeSpinner);
+        int shaType = SHATypeSpinner.getSelectedItemPosition();
+        String key = TOTP.gen(activeSeed, activeDigits, shaType, activeTimeInterval);
+        TextView keyTextView = (TextView) findViewById(R.id.totpKeyTextView);
+        if (keyTextView != null) {
+            keyTextView.setText(key);
+            keyTextView.setVisibility(View.VISIBLE);
         }
     };
 
@@ -193,11 +189,7 @@ public class Home extends AppCompatActivity {
     private class PinTextWatcher implements TextWatcher {
         public void afterTextChanged(Editable s) {
             Button generateButton = (Button) findViewById(R.id.motpGenerateButton);
-            if (s.length() == 4) {
-                generateButton.setEnabled(true);
-            } else {
-                generateButton.setEnabled(false);
-            }
+            generateButton.setEnabled(s.length() == 4);
         }
 
         public void beforeTextChanged(CharSequence s, int start, int count,

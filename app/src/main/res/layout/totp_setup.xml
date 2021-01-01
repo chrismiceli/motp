@@ -26,12 +26,12 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <TextView
-            android:id="@+id/totpProfileTextView"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
             android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="10dp"
+            android:labelFor="@+id/totpProfileEditText"
             android:text="@string/prof_name"
             android:textSize="28sp" />
 
@@ -41,17 +41,19 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+            android:hint="@string/prof_name"
+            android:importantForAutofill="no"
             android:inputType="text"
             android:singleLine="true"
             android:textSize="28sp" />
 
         <TextView
-            android:id="@+id/totpSeedTextView"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
             android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="10dp"
+            android:labelFor="@+id/totpSeedEditText"
             android:text="@string/seed_name"
             android:textSize="28sp" />
 
@@ -61,6 +63,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+            android:hint="@string/seed_name"
+            android:importantForAutofill="no"
             android:inputType="text"
             android:singleLine="true"
             android:textSize="28sp" />
@@ -72,9 +76,9 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/totpOutputSizeTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:labelFor="@+id/totpOutputSizeEditText"
                 android:text="@string/output_size"
                 android:textSize="24sp" />
 
@@ -82,8 +86,10 @@
                 android:id="@+id/totpOutputSizeEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
                 android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:hint="@string/output_size"
+                android:importantForAutofill="no"
                 android:inputType="number"
                 android:maxEms="2"
                 android:maxLength="2"
@@ -96,20 +102,20 @@
             android:id="@+id/totpSeedTypeSpinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
             android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="10dp"
             android:prompt="@string/seed_type" />
 
         <Spinner
             android:id="@+id/totpTimeIntervalSpinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
             android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="10dp"
             android:prompt="@string/time_interval" />
 
         <Button

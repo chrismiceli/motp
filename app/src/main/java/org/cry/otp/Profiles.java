@@ -8,12 +8,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.preference.PreferenceManager;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnCreateContextMenuListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
@@ -34,23 +31,21 @@ public class Profiles extends AppCompatActivity {
     private static final int CONTEXT_SECRET = 2;
     private static final int DIALOG_OTP_TYPES = 0;
     private static final int DIALOG_ABOUT = 1;
-    private final DialogInterface.OnClickListener otpTypeClickListener = new DialogInterface.OnClickListener() {
-        public void onClick(DialogInterface dialog, int which) {
-            final Intent intent = new Intent(Profiles.this, ProfileSetup.class);
-            if (which == Home.OTP_TYPE_MOTP) {
-                intent.putExtra(DBAdapter.KEY_OTP_TYPE, Home.OTP_TYPE_MOTP);
-                startActivity(intent);
-                dismissDialog(DIALOG_OTP_TYPES);
-            } else if (which == Home.OTP_TYPE_HOTP) {
-                intent.putExtra(DBAdapter.KEY_OTP_TYPE, Home.OTP_TYPE_HOTP);
-                startActivity(intent);
-                dismissDialog(DIALOG_OTP_TYPES);
-            } else {
-                // TOTP
-                intent.putExtra(DBAdapter.KEY_OTP_TYPE, Home.OTP_TYPE_TOTP);
-                startActivity(intent);
-                dismissDialog(DIALOG_OTP_TYPES);
-            }
+    private final DialogInterface.OnClickListener otpTypeClickListener = (dialog, which) -> {
+        final Intent intent = new Intent(Profiles.this, ProfileSetup.class);
+        if (which == Home.OTP_TYPE_MOTP) {
+            intent.putExtra(DBAdapter.KEY_OTP_TYPE, Home.OTP_TYPE_MOTP);
+            startActivity(intent);
+            dismissDialog(DIALOG_OTP_TYPES);
+        } else if (which == Home.OTP_TYPE_HOTP) {
+            intent.putExtra(DBAdapter.KEY_OTP_TYPE, Home.OTP_TYPE_HOTP);
+            startActivity(intent);
+            dismissDialog(DIALOG_OTP_TYPES);
+        } else {
+            // TOTP
+            intent.putExtra(DBAdapter.KEY_OTP_TYPE, Home.OTP_TYPE_TOTP);
+            startActivity(intent);
+            dismissDialog(DIALOG_OTP_TYPES);
         }
     };
     private Cursor profilesCursor;
@@ -125,9 +120,7 @@ public class Profiles extends AppCompatActivity {
         } else if (id == DIALOG_ABOUT) {
             builder = new AlertDialog.Builder(this).setTitle(R.string.about_dialog_title)
                     .setMessage(R.string.info)
-                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                        }
+                    .setPositiveButton(android.R.string.yes, (dialog1, which) -> {
                     })
                     .setIcon(android.R.drawable.ic_dialog_info);
             dialog = builder.create();
@@ -174,19 +167,16 @@ public class Profiles extends AppCompatActivity {
         profilesCursor.close();
         db.close();
         ListView profilesList = (ListView) findViewById(R.id.profilesList);
-        listAdapter = new ArrayAdapter(this, R.layout.profile_list_item, R.id.list_content, profiles);
+        listAdapter = new ArrayAdapter<>(this, R.layout.profile_list_item, R.id.list_content, profiles);
         listAdapter.notifyDataSetChanged();
         if (profilesList != null) {
             profilesList.setAdapter(listAdapter);
             profilesList.setOnItemClickListener(profilesGridListener);
-            profilesList.setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
-                public void onCreateContextMenu(ContextMenu menu, View v,
-                                                ContextMenuInfo menuInfo) {
-                    menu.setHeaderTitle(R.string.manage_profile_title);
-                    menu.add(0, CONTEXT_DELETE, 0, R.string.delete);
-                    menu.add(0, CONTEXT_EDIT, 0, R.string.edit_profile);
-                    menu.add(0, CONTEXT_SECRET, 0, R.string.get_secret);
-                }
+            profilesList.setOnCreateContextMenuListener((menu, v, menuInfo) -> {
+                menu.setHeaderTitle(R.string.manage_profile_title);
+                menu.add(0, CONTEXT_DELETE, 0, R.string.delete);
+                menu.add(0, CONTEXT_EDIT, 0, R.string.edit_profile);
+                menu.add(0, CONTEXT_SECRET, 0, R.string.get_secret);
             });
         }
     }
@@ -201,7 +191,6 @@ public class Profiles extends AppCompatActivity {
             c.moveToNext();
         }
 
-        int col_index = c.getColumnIndexOrThrow(DBAdapter.KEY_PROF_NAME);
         int rowId = c.getInt(c.getColumnIndexOrThrow(DBAdapter.KEY_ROW_ID));
         String profName = c.getString(c.getColumnIndexOrThrow(DBAdapter.KEY_PROF_NAME));
         String seed = c.getString(c.getColumnIndexOrThrow(DBAdapter.KEY_SEED));
