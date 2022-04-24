@@ -26,9 +26,9 @@ public class ProfileSetup extends AppCompatActivity {
     private final OnClickListener motpSaveButtonListener = new OnClickListener() {
 
         public void onClick(View v) {
-            EditText profName = (EditText) findViewById(R.id.motpProfileEditText);
-            EditText profSeed = (EditText) findViewById(R.id.motpSeedEditText);
-            Spinner spinner = (Spinner) findViewById(R.id.motpTimeZoneSpinner);
+            EditText profName = findViewById(R.id.motpProfileEditText);
+            EditText profSeed = findViewById(R.id.motpSeedEditText);
+            Spinner spinner = findViewById(R.id.motpTimeZoneSpinner);
             String name = profName.getText().toString();
             String seed = profSeed.getText().toString();
             int zone = spinner.getSelectedItemPosition();
@@ -57,10 +57,10 @@ public class ProfileSetup extends AppCompatActivity {
     };
     private final OnClickListener hotpSaveButtonListener = new OnClickListener() {
         public void onClick(View v) {
-            EditText profName = (EditText) findViewById(R.id.hotpProfileEditText);
-            EditText profSeed = (EditText) findViewById(R.id.hotpSeedEditText);
-            EditText profDigit = (EditText) findViewById(R.id.hotpOutputSizeEditText);
-            Spinner seedTypeSpinner = (Spinner) findViewById(R.id.hotpSeedTypeSpinner);
+            EditText profName = findViewById(R.id.hotpProfileEditText);
+            EditText profSeed = findViewById(R.id.hotpSeedEditText);
+            EditText profDigit = findViewById(R.id.hotpOutputSizeEditText);
+            Spinner seedTypeSpinner = findViewById(R.id.hotpSeedTypeSpinner);
             String name = profName.getText().toString();
             String seed = profSeed.getText().toString();
             boolean hexadecimalSeed = seedTypeSpinner.getSelectedItemPosition() == 0;
@@ -94,7 +94,7 @@ public class ProfileSetup extends AppCompatActivity {
             } else {
                 StringBuilder newSeed = new StringBuilder();
                 for (int i = 0; i < seed.length(); i++) {
-                    newSeed.append(Integer.toHexString((int) seed.charAt(i)));
+                    newSeed.append(Integer.toHexString(seed.charAt(i)));
                 }
 
                 seed = newSeed.toString();
@@ -127,11 +127,11 @@ public class ProfileSetup extends AppCompatActivity {
     private final OnClickListener totpSaveButtonListener = new OnClickListener() {
 
         public void onClick(View v) {
-            EditText profName = (EditText) findViewById(R.id.totpProfileEditText);
-            EditText profSeed = (EditText) findViewById(R.id.totpSeedEditText);
-            EditText profDigits = (EditText) findViewById(R.id.totpOutputSizeEditText);
-            Spinner seedTypeSpinner = (Spinner) findViewById(R.id.totpSeedTypeSpinner);
-            Spinner timeIntervalSpinner = (Spinner) findViewById(R.id.totpTimeIntervalSpinner);
+            EditText profName = findViewById(R.id.totpProfileEditText);
+            EditText profSeed = findViewById(R.id.totpSeedEditText);
+            EditText profDigits = findViewById(R.id.totpOutputSizeEditText);
+            Spinner seedTypeSpinner = findViewById(R.id.totpSeedTypeSpinner);
+            Spinner timeIntervalSpinner = findViewById(R.id.totpTimeIntervalSpinner);
             String name = profName.getText().toString();
             String seed = profSeed.getText().toString();
             int digits;
@@ -174,7 +174,7 @@ public class ProfileSetup extends AppCompatActivity {
             } else {
                 StringBuilder newSeed = new StringBuilder();
                 for (int i = 0; i < seed.length(); i++) {
-                    newSeed.append(Integer.toHexString((int) seed.charAt(i)));
+                    newSeed.append(Integer.toHexString(seed.charAt(i)));
                 }
 
                 seed = newSeed.toString();
@@ -388,10 +388,10 @@ public class ProfileSetup extends AppCompatActivity {
             if (otpType == Home.OTP_TYPE_MOTP) {
                 setContentView(R.layout.motp_setup);
                 setTitle(getString(R.string.app_name) + " - mOTP");
-                EditText profNameEditText = (EditText) findViewById(R.id.motpProfileEditText);
-                EditText seedEditText = (EditText) findViewById(R.id.motpSeedEditText);
-                Spinner spinner = (Spinner) findViewById(R.id.motpTimeZoneSpinner);
-                Button saveButton = (Button) findViewById(R.id.motpSaveButton);
+                EditText profNameEditText = findViewById(R.id.motpProfileEditText);
+                EditText seedEditText = findViewById(R.id.motpSeedEditText);
+                Spinner spinner = findViewById(R.id.motpTimeZoneSpinner);
+                Button saveButton = findViewById(R.id.motpSaveButton);
                 ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.TimeZones, R.layout.spinner_layout);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinner.setAdapter(adapter);
@@ -404,13 +404,13 @@ public class ProfileSetup extends AppCompatActivity {
             } else if (otpType == Home.OTP_TYPE_HOTP) {
                 setContentView(R.layout.hotp_setup);
                 setTitle(getString(R.string.app_name) + " - HOTP");
-                EditText profNameEditText = (EditText) findViewById(R.id.hotpProfileEditText);
-                EditText seedEditText = (EditText) findViewById(R.id.hotpSeedEditText);
-                EditText digitEditText = (EditText) findViewById(R.id.hotpOutputSizeEditText);
-                Button saveButton = (Button) findViewById(R.id.hotpSaveButton);
+                EditText profNameEditText = findViewById(R.id.hotpProfileEditText);
+                EditText seedEditText = findViewById(R.id.hotpSeedEditText);
+                EditText digitEditText = findViewById(R.id.hotpOutputSizeEditText);
+                Button saveButton = findViewById(R.id.hotpSaveButton);
                 profNameEditText.setText(name);
                 seedEditText.setText(seed);
-                Spinner seedTypeSpinner = (Spinner) findViewById(R.id.hotpSeedTypeSpinner);
+                Spinner seedTypeSpinner = findViewById(R.id.hotpSeedTypeSpinner);
                 ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.SeedTypes, R.layout.spinner_layout);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 seedTypeSpinner.setAdapter(adapter);
@@ -421,14 +421,14 @@ public class ProfileSetup extends AppCompatActivity {
                 // TOTP
                 setContentView(R.layout.totp_setup);
                 setTitle(getString(R.string.app_name) + " - TOTP");
-                EditText profNameEditText = (EditText) findViewById(R.id.totpProfileEditText);
-                EditText seedEditText = (EditText) findViewById(R.id.totpSeedEditText);
-                EditText digitEditText = (EditText) findViewById(R.id.totpOutputSizeEditText);
-                Button saveButton = (Button) findViewById(R.id.totpSaveButton);
+                EditText profNameEditText = findViewById(R.id.totpProfileEditText);
+                EditText seedEditText = findViewById(R.id.totpSeedEditText);
+                EditText digitEditText = findViewById(R.id.totpOutputSizeEditText);
+                Button saveButton = findViewById(R.id.totpSaveButton);
                 profNameEditText.setText(name);
                 seedEditText.setText(seed);
-                Spinner seedTypeSpinner = (Spinner) findViewById(R.id.totpSeedTypeSpinner);
-                Spinner timeIntervalSpinner = (Spinner) findViewById(R.id.totpTimeIntervalSpinner);
+                Spinner seedTypeSpinner = findViewById(R.id.totpSeedTypeSpinner);
+                Spinner timeIntervalSpinner = findViewById(R.id.totpTimeIntervalSpinner);
                 ArrayAdapter<CharSequence> seedTypesAdapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.SeedTypes, R.layout.spinner_layout);
                 seedTypesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 seedTypeSpinner.setAdapter(seedTypesAdapter);
@@ -445,9 +445,9 @@ public class ProfileSetup extends AppCompatActivity {
             if (type == Home.OTP_TYPE_MOTP) {
                 setContentView(R.layout.motp_setup);
                 setTitle(getString(R.string.app_name) + " - mOTP");
-                Button saveButton = (Button) findViewById(R.id.motpSaveButton);
+                Button saveButton = findViewById(R.id.motpSaveButton);
                 saveButton.setOnClickListener(motpSaveButtonListener);
-                Spinner timeZoneSpinner = (Spinner) findViewById(R.id.motpTimeZoneSpinner);
+                Spinner timeZoneSpinner = findViewById(R.id.motpTimeZoneSpinner);
                 ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.TimeZones, R.layout.spinner_layout);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 timeZoneSpinner.setAdapter(adapter);
@@ -455,34 +455,34 @@ public class ProfileSetup extends AppCompatActivity {
             } else if (type == Home.OTP_TYPE_HOTP) {
                 setContentView(R.layout.hotp_setup);
                 setTitle(getString(R.string.app_name) + " - HOTP");
-                Spinner seedTypeSpinner = (Spinner) findViewById(R.id.hotpSeedTypeSpinner);
+                Spinner seedTypeSpinner = findViewById(R.id.hotpSeedTypeSpinner);
                 ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.SeedTypes, R.layout.spinner_layout);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 seedTypeSpinner.setAdapter(adapter);
                 seedTypeSpinner.setSelection(0);
-                Button saveButton = (Button) findViewById(R.id.hotpSaveButton);
+                Button saveButton = findViewById(R.id.hotpSaveButton);
                 saveButton.setOnClickListener(hotpSaveButtonListener);
             } else {
                 // TOTP
                 setContentView(R.layout.totp_setup);
                 setTitle(getString(R.string.app_name) + " - TOTP");
-                Spinner seedTypeSpinner = (Spinner) findViewById(R.id.totpSeedTypeSpinner);
+                Spinner seedTypeSpinner = findViewById(R.id.totpSeedTypeSpinner);
 
                 ArrayAdapter<CharSequence> seedTypeAdapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.SeedTypes, R.layout.spinner_layout);
                 seedTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 seedTypeSpinner.setAdapter(seedTypeAdapter);
                 seedTypeSpinner.setSelection(0);
-                Spinner timeIntervalSpinner = (Spinner) findViewById(R.id.totpTimeIntervalSpinner);
+                Spinner timeIntervalSpinner = findViewById(R.id.totpTimeIntervalSpinner);
                 ArrayAdapter<CharSequence> timeIntervalAdapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.TimeIntervals, R.layout.spinner_layout);
                 timeIntervalAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 timeIntervalSpinner.setAdapter(timeIntervalAdapter);
                 timeIntervalSpinner.setSelection(0);
-                Button saveButton = (Button) findViewById(R.id.totpSaveButton);
+                Button saveButton = findViewById(R.id.totpSaveButton);
                 saveButton.setOnClickListener(totpSaveButtonListener);
             }
         }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
 

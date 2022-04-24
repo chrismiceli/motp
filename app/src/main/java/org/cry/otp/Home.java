@@ -44,13 +44,14 @@ public class Home extends AppCompatActivity {
     private ClipboardManager clipboardManager;
 
     private final OnClickListener generateMOTPListener = v -> {
-        TextView pinEditText = (TextView) findViewById(R.id.motpPinEditText);
+        TextView pinEditText = findViewById(R.id.motpPinEditText);
         if (pinEditText != null && pinEditText.getText().length() != 4) {
             return;
         }
 
-        String key = mOTP.gen(pinEditText.getText().toString(), activeSeed, activeZone);
-        TextView keyTextView = (TextView) findViewById(R.id.motpKeyTextView);
+        CharSequence pin = pinEditText.getText();
+        String key = mOTP.gen(pin == null ? "" : pin.toString(), activeSeed, activeZone);
+        TextView keyTextView = findViewById(R.id.motpKeyTextView);
         if (keyTextView != null) {
             keyTextView.setText(key);
             keyTextView.setVisibility(View.VISIBLE);
@@ -67,7 +68,7 @@ public class Home extends AppCompatActivity {
         public void onClick(View v) {
             HOTP hotp = new HOTP();
             String key = hotp.gen(activeSeed, activeCount, activeDigits);
-            TextView keyTextView = (TextView) findViewById(R.id.hotpKeyTextView);
+            TextView keyTextView = findViewById(R.id.hotpKeyTextView);
             if (keyTextView != null) {
                 keyTextView.setText(key);
                 keyTextView.setVisibility(View.VISIBLE);
@@ -87,10 +88,10 @@ public class Home extends AppCompatActivity {
     };
 
     private final OnClickListener generateTOTPListener = v -> {
-        Spinner SHATypeSpinner = (Spinner) findViewById(R.id.totpSHATypeSpinner);
+        Spinner SHATypeSpinner = findViewById(R.id.totpSHATypeSpinner);
         int shaType = SHATypeSpinner.getSelectedItemPosition();
         String key = TOTP.gen(activeSeed, activeDigits, shaType, activeTimeInterval);
-        TextView keyTextView = (TextView) findViewById(R.id.totpKeyTextView);
+        TextView keyTextView = findViewById(R.id.totpKeyTextView);
         if (keyTextView != null) {
             keyTextView.setText(key);
             keyTextView.setVisibility(View.VISIBLE);
@@ -118,21 +119,21 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        clipboardManager = (ClipboardManager)this.getSystemService(CLIPBOARD_SERVICE);
+        clipboardManager = (ClipboardManager) this.getSystemService(CLIPBOARD_SERVICE);
         if (activeOTPType == OTP_TYPE_HOTP) {
             // HOTP
             setContentView(R.layout.hotp_main);
-            Button generateButton = (Button) findViewById(R.id.hotpGenerateButton);
-            TextView profNameTextView = (TextView) findViewById(R.id.hotpProfileNameTextView);
+            Button generateButton = findViewById(R.id.hotpGenerateButton);
+            TextView profNameTextView = findViewById(R.id.hotpProfileNameTextView);
             profNameTextView.setText(activeProfName);
             generateButton.setOnClickListener(generateHOTPListener);
             setTitle(getString(R.string.app_name) + " - HOTP");
         } else if (activeOTPType == OTP_TYPE_TOTP) {
             setContentView(R.layout.totp_main);
-            Button generateButton = (Button) findViewById(R.id.totpGenerateButton);
-            TextView profNameTextView = (TextView) findViewById(R.id.totpProfileNameTextView);
+            Button generateButton = findViewById(R.id.totpGenerateButton);
+            TextView profNameTextView = findViewById(R.id.totpProfileNameTextView);
             profNameTextView.setText(activeProfName);
-            Spinner SHATypeSpinner = (Spinner) findViewById(R.id.totpSHATypeSpinner);
+            Spinner SHATypeSpinner = findViewById(R.id.totpSHATypeSpinner);
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.SHATypes, R.layout.spinner_layout);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             SHATypeSpinner.setAdapter(adapter);
@@ -141,21 +142,21 @@ public class Home extends AppCompatActivity {
         } else {
             // mOTP
             setContentView(R.layout.motp_main);
-            Button generateButton = (Button) findViewById(R.id.motpGenerateButton);
-            TextView profNameTextView = (TextView) findViewById(R.id.motpProfileNameTextView);
-            EditText pinEditText = (EditText) findViewById(R.id.motpPinEditText);
+            Button generateButton = findViewById(R.id.motpGenerateButton);
+            TextView profNameTextView = findViewById(R.id.motpProfileNameTextView);
+            EditText pinEditText = findViewById(R.id.motpPinEditText);
             profNameTextView.setText(activeProfName);
             generateButton.setOnClickListener(generateMOTPListener);
             pinEditText.addTextChangedListener(new PinTextWatcher());
             setTitle(getString(R.string.app_name) + " - mOTP");
-            TextView epoch = (TextView) findViewById(R.id.epochValue);
+            TextView epoch = findViewById(R.id.epochValue);
             long time = new Date().getTime();
             String epochValue = "" + time + TimeZone.getTimeZone(activeZone).getOffset(time);
             activeZone = preferences.getString(DBAdapter.KEY_TIME_ZONE, "GMT");
             epoch.setText(epochValue.substring(0, 9));
         }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
 
@@ -201,7 +202,7 @@ public class Home extends AppCompatActivity {
 
     private class PinTextWatcher implements TextWatcher {
         public void afterTextChanged(Editable s) {
-            Button generateButton = (Button) findViewById(R.id.motpGenerateButton);
+            Button generateButton = findViewById(R.id.motpGenerateButton);
             generateButton.setEnabled(s.length() == 4);
         }
 

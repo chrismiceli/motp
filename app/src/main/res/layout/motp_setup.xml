@@ -56,25 +56,26 @@
             android:labelFor="@+id/motpSeedEditText"
             android:text="@string/seed_name"
             android:textSize="28sp" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/motpSeedEditTextContainer"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             app:counterEnabled="true"
-            app:counterMaxLength="20"
-            >
-        <EditText
-            android:id="@+id/motpSeedEditText"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:hint="@string/seed_name_no_colon"
-            android:importantForAutofill="no"
-            android:inputType="text"
-            android:singleLine="true"
-            android:textSize="28sp" />
-        </com.google.android.material.textfield.TextInputLayout >
+            app:counterMaxLength="20">
+
+            <EditText
+                android:id="@+id/motpSeedEditText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:hint="@string/seed_name_no_colon"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textSize="28sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:layout_width="fill_parent"
