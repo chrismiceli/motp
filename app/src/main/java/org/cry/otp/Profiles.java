@@ -101,7 +101,7 @@ public class Profiles extends AppCompatActivity {
             preferences = PreferenceManager.getDefaultSharedPreferences(this);
             setContentView(R.layout.profiles);
 
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            Toolbar toolbar = findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
             createList();
         }
@@ -166,7 +166,7 @@ public class Profiles extends AppCompatActivity {
 
         profilesCursor.close();
         db.close();
-        ListView profilesList = (ListView) findViewById(R.id.profilesList);
+        ListView profilesList = findViewById(R.id.profilesList);
         listAdapter = new ArrayAdapter<>(this, R.layout.profile_list_item, R.id.list_content, profiles);
         listAdapter.notifyDataSetChanged();
         if (profilesList != null) {
