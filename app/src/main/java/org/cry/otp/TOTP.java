@@ -62,19 +62,16 @@ class TOTP {
 
         long testTime = System.currentTimeMillis() / 1000L;
         long T = (testTime - T0) / (long) timeInterval;
-        StringBuilder time = new StringBuilder(Long.toHexString(T).toUpperCase());
-        while (time.length() < 16)
-            time.append("0");
+
+        // will destroy T
+        byte[] msg = new byte[8];
+        for (int i = 7; i >= 0; --i) {
+            msg[i] = (byte) (T & 0xff);
+            T = T >> 8;
+        }
 
         StringBuilder result;
         byte[] hash;
-
-        // Get the HEX in a Byte[]
-        byte[] msg = hexStr2Bytes(time.toString());
-
-        // Adding one byte to get the right conversion
-        // key = encodeHexString(key);
-        // byte[] k = hexStr2Bytes(key);
 
         byte[] k = new byte[key.length() / 2];
         for (int i = 0; i < key.length(); i += 2) {
