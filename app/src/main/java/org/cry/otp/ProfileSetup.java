@@ -15,6 +15,9 @@ import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import java.math.BigInteger;
+import java.util.HashMap;
+
 public class ProfileSetup extends AppCompatActivity {
     private SharedPreferences preferences;
     private boolean editing = false;
@@ -140,7 +143,7 @@ public class ProfileSetup extends AppCompatActivity {
             } catch (NumberFormatException exception) {
                 digits = 0;
             }
-            boolean hexadecimalSeed = seedTypeSpinner.getSelectedItemPosition() == 0;
+            int seedType = seedTypeSpinner.getSelectedItemPosition();
             int timeInterval = timeIntervalSpinner.getSelectedItemPosition() == 0 ? 30 : 60;
             if (digits <= 0 || digits >= 10) {
                 builder.setTitle(R.string.error_title);
@@ -150,7 +153,8 @@ public class ProfileSetup extends AppCompatActivity {
                 return;
             }
 
-            if (hexadecimalSeed) {
+            if (seedType == 0) {
+                // Seed should be HEX
                 try {
                     if (seed.length() % 2 != 0 || seed.length() == 0) {
                         throw new NumberFormatException();
@@ -171,13 +175,87 @@ public class ProfileSetup extends AppCompatActivity {
                     builder.show();
                     return;
                 }
-            } else {
+            } else if (seedType == 1) {
+                // Seed should be ASCII
                 StringBuilder newSeed = new StringBuilder();
                 for (int i = 0; i < seed.length(); i++) {
                     newSeed.append(Integer.toHexString(seed.charAt(i)));
                 }
 
                 seed = newSeed.toString();
+            } else if (seedType == 2) {
+                // Seed should be BASE32
+                if (seed.length() % 8 != 0) {
+                    builder.setTitle(getString(R.string.error_title));
+                    builder.setMessage("BASE32 Seed length is invalid, should be multiple of 8");
+                    builder.setPositiveButton(getString(R.string.ok), null);
+                    builder.show();
+                    return;
+                }
+
+                HashMap<Character, Integer> xcode = new HashMap<Character, Integer>();
+                // Setup A-Z, allow lower cases
+                for (int i = 0; i < 26; ++i) {
+                    xcode.put((char)('A'+i), i);
+                    xcode.put((char)('a'+i), i);
+                }
+
+                // Setup 2-7
+                for (int i = 0; i < 6; ++i) {
+                    xcode.put((char)('2'+i), 26+i);
+                }
+
+                // Use one to keep 0 padding in front
+                BigInteger iseed = BigInteger.ONE;
+                {
+                    int i = 0;
+                    for (; i < seed.length(); i++) {
+                        char c = seed.charAt(i);
+                        if (c == '=')
+                            break;
+                        Integer o = xcode.get(c);
+                        if (o == null) {
+                            builder.setTitle(getString(R.string.error_title));
+                            builder.setMessage(String.format("BASE32 Invalid char '%c'", c));
+                            builder.setPositiveButton(getString(R.string.ok), null);
+                            builder.show();
+                            return;
+                        }
+                        iseed = iseed.shiftLeft(5).add(BigInteger.valueOf(o));
+                    }
+
+                    switch (seed.substring(i)) {
+                        case "":
+                            break;
+                        case "=": // 35 bits
+                            iseed = iseed.shiftRight(3);
+                            break;
+                        case "===": // 25 bits
+                            iseed = iseed.shiftRight(1);
+                            break;
+                        case "====": // 20 bits
+                            iseed = iseed.shiftRight(4);
+                            break;
+                        case "==": // 10 bits
+                            iseed = iseed.shiftRight(2);
+                            break;
+                        default:
+                            builder.setTitle(getString(R.string.error_title));
+                            builder.setMessage("BASE32 Invalid padding");
+                            builder.setPositiveButton(getString(R.string.ok), null);
+                            builder.show();
+                            return;
+                    }
+                }
+
+                seed = String.format("%X", iseed).substring(1);
+
+            } else {
+                builder.setTitle(getString(R.string.error_title));
+                builder.setMessage(getString(R.string.error_seed_type));
+                builder.setPositiveButton(getString(R.string.ok), null);
+                builder.show();
+                return;
             }
 
             if (checkIfInDatabase(name)) {
@@ -530,7 +608,8 @@ public class ProfileSetup extends AppCompatActivity {
     private void updateIntoDatabaseAndFinish(String name, String seed, int otpType, int digits, String time_zone, int time_interval) {
         db.open();
         Cursor current = db.getProfile(editingRowID);
-        int count = current.getInt(current.getColumnIndex(DBAdapter.KEY_COUNT));
+        int columnIndex = current.getColumnIndex(DBAdapter.KEY_COUNT);
+        int count = current.getInt(columnIndex);
         db.deleteProfile(editingRowID);
         int rowId = (int) db.insertProfile(name, seed, otpType, digits, time_zone, time_interval);
         db.updateCount(rowId, count);

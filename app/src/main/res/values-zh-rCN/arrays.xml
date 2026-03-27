@@ -8,6 +8,7 @@
     <string-array name="SeedTypes">
         <item>16进制</item>
         <item>ASCII</item>
+        <item>BASE32</item>
     </string-array>
     <string-array name="SHATypes">
         <item>SHA-1</item>

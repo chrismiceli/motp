@@ -39,4 +39,5 @@
     <string name="seed_name_no_colon">數種子</string>
     <string name="pin_no_colon">密碼</string>
     <string name="output_size_no_colon">數字</string>
+    <string name="error_seed_type">Seed type is unknow ! Should be a coding error</string>
 </resources>
