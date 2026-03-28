@@ -12,9 +12,10 @@ import javax.crypto.spec.SecretKeySpec;
  * www.openauthentication.org for more information. There have been
  * modifications to work within the mOTP framework for OTPs by Chris Miceli
  *
+ * Standard Java implementation from RFC 6238
  * @author Johan Rydell, PortWise, Inc.
  */
-class TOTP {
+public class TOTP {
 
     private TOTP() {
     }
@@ -28,7 +29,7 @@ class TOTP {
      * @param keyBytes the bytes to use for the HMAC key
      * @param text     the message or text to be authenticated.
      */
-    private static byte[] hmac_sha1(String crypto, byte[] keyBytes, byte[] text) {
+    private static byte[] hmac_sha(String crypto, byte[] keyBytes, byte[] text) {
         try {
             Mac hmac;
             hmac = Mac.getInstance(crypto);
@@ -53,33 +54,28 @@ class TOTP {
 
         // Copy all the REAL bytes, not the "first"
         byte[] ret = new byte[bArray.length - 1];
-        System.arraycopy(bArray, 1, ret, 0, ret.length);
+        for (int i = 0; i < ret.length; i++) {
+             ret[i] = bArray[i+1];
+        }
+
         return ret;
     }
 
-    public static String gen(String key, int returnDigits, int shaType, int timeInterval) {
+    public static String gen(String key, long timeInSeconds, int returnDigits, int shaType, int timeInterval) {
         long T0 = 0;
 
-        long testTime = System.currentTimeMillis() / 1000L;
-        long T = (testTime - T0) / (long) timeInterval;
-        StringBuilder time = new StringBuilder(Long.toHexString(T).toUpperCase());
-        while (time.length() < 16)
-            time.append("0");
+        long T = (timeInSeconds - T0) / (long) timeInterval;
+
+        // represent number of time intervals as 0-left padded hex in uppercase
+        String time = String.format("%016X", T);
 
         StringBuilder result;
         byte[] hash;
 
         // Get the HEX in a Byte[]
-        byte[] msg = hexStr2Bytes(time.toString());
+        byte[] msg = hexStr2Bytes(time);
 
-        // Adding one byte to get the right conversion
-        // key = encodeHexString(key);
-        // byte[] k = hexStr2Bytes(key);
-
-        byte[] k = new byte[key.length() / 2];
-        for (int i = 0; i < key.length(); i += 2) {
-            k[i / 2] = (byte) Integer.parseInt(key.substring(i, i + 2), 16);
-        }
+        byte[] k = hexStr2Bytes(key);
 
         String crypto;
         if (shaType == 0) {
@@ -87,10 +83,11 @@ class TOTP {
         } else if (shaType == 1) {
             crypto = "HmacSHA256";
         } else {
-            // sha 256
+            // sha 512
             crypto = "HmacSHA512";
         }
-        hash = hmac_sha1(crypto, k, msg);
+
+        hash = hmac_sha(crypto, k, msg);
 
         // put selected bytes into result int
         int offset = hash[hash.length - 1] & 0xf;
@@ -103,8 +100,9 @@ class TOTP {
 
         result = new StringBuilder(Integer.toString(otp));
         while (result.length() < returnDigits) {
-            result.append("0");
+            result.insert(0, "0");
         }
+
         return result.toString();
     }
 }
