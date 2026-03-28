@@ -140,7 +140,9 @@ public class ProfileSetup extends AppCompatActivity {
             } catch (NumberFormatException exception) {
                 digits = 0;
             }
-            boolean hexadecimalSeed = seedTypeSpinner.getSelectedItemPosition() == 0;
+            boolean isHexadecimal = seedTypeSpinner.getSelectedItemPosition() == 0;
+            boolean isAscii = seedTypeSpinner.getSelectedItemPosition() == 1;
+            boolean isBase32 = seedTypeSpinner.getSelectedItemPosition() == 2;
             int timeInterval = timeIntervalSpinner.getSelectedItemPosition() == 0 ? 30 : 60;
             if (digits <= 0 || digits >= 10) {
                 builder.setTitle(R.string.error_title);
@@ -150,9 +152,9 @@ public class ProfileSetup extends AppCompatActivity {
                 return;
             }
 
-            if (hexadecimalSeed) {
+            if (isHexadecimal) {
                 try {
-                    if (seed.length() % 2 != 0 || seed.length() == 0) {
+                    if (seed.length() % 2 != 0 || seed.isEmpty()) {
                         throw new NumberFormatException();
                     }
 
@@ -164,20 +166,22 @@ public class ProfileSetup extends AppCompatActivity {
                         Integer.parseInt(seed.substring(i, i + 1), 16);
                     }
                 } catch (NumberFormatException e) {
-                    e.printStackTrace();
                     builder.setTitle(R.string.error_title);
                     builder.setMessage(R.string.hex_seed_error);
                     builder.setPositiveButton(getString(R.string.ok), null);
                     builder.show();
                     return;
                 }
-            } else {
+            } else if (isAscii) {
                 StringBuilder newSeed = new StringBuilder();
                 for (int i = 0; i < seed.length(); i++) {
                     newSeed.append(Integer.toHexString(seed.charAt(i)));
                 }
 
                 seed = newSeed.toString();
+            } else {
+                // base32
+                seed = Base32Decoder.bytesToHex(Base32Decoder.decode(seed));
             }
 
             if (checkIfInDatabase(name)) {

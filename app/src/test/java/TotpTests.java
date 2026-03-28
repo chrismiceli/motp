@@ -1,6 +1,10 @@
+import org.cry.otp.Base32Decoder;
 import org.cry.otp.TOTP;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class TotpTests {
     @Test
@@ -29,6 +33,26 @@ public class TotpTests {
             Assert.assertEquals(expectedTotpValues[i], TOTP.gen(seeds[0], testTime[i / 3], 8, 0, 30));
             Assert.assertEquals(expectedTotpValues[i + 1], TOTP.gen(seeds[1], testTime[i / 3], 8, 1, 30));
             Assert.assertEquals(expectedTotpValues[i + 2], TOTP.gen(seeds[2], testTime[i / 3], 8, 2, 30));
+        }
+    }
+
+    /**
+     * Tests that the base32 decoder matches OTPAuth implementation
+     * <a href="https://github.com/hectorm/otpauth">OTP Auth</a>
+     */
+    @Test
+    public void TotpBase32Decoding() {
+        Map<String, String> dictionary = new HashMap<>();
+
+        // each entry is the input base32 and the value is the expected hex string
+        dictionary.put("T6MRMULZHBRISDJGNHQ7SSQ3X2RU4ZRF", "9f991651793862890d2669e1f94a1bbea34e6625");
+        dictionary.put("T6MR MULZ HBRI SDJG NHQ7 SSQ3 X2RU 4ZRF", "9f991651793862890d2669e1f94a1bbea34e6625"); // spaces are ignored
+        dictionary.put("YXBW6HOVI3RYJYIOCMBLTJJVWRLYEP7N", "c5c36f1dd546e384e10e1302b9a535b457823fed");
+
+        for (Map.Entry<String, String> entry : dictionary.entrySet()) {
+            Assert.assertEquals(
+                    entry.getValue(),
+                    Base32Decoder.bytesToHex(Base32Decoder.decode(entry.getKey())));
         }
     }
 }
