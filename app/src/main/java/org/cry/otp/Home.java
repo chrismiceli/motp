@@ -192,8 +192,12 @@ public class Home extends AppCompatActivity {
                 if (activeOTPType == OTP_TYPE_MOTP) {
                     epoch = epoch.substring(0, epoch.length() - 4);
                 }
-                builder.setMessage(getString(R.string.time) + ":  " + epoch + "\n"
-                        + getString(R.string.time_zone) + ":  " + activeZone);
+                String message = getString(R.string.time) + ":  " + epoch;
+                if (!activeZone.isBlank()) {
+                    message = message + getString(R.string.time_zone) + ":  " + activeZone;
+                }
+
+                builder.setMessage(message);
                 builder.setPositiveButton(getString(R.string.ok), null);
                 builder.show();
                 return true;
