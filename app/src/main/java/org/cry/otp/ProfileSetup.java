@@ -70,14 +70,15 @@ public class ProfileSetup extends AppCompatActivity {
             Spinner seedTypeSpinner = findViewById(R.id.hotpSeedTypeSpinner);
             String name = profName.getText().toString();
             String seed = profSeed.getText().toString();
-            boolean hexadecimalSeed = seedTypeSpinner.getSelectedItemPosition() == 0;
+            boolean isHexadecimal = seedTypeSpinner.getSelectedItemPosition() == 0;
+            boolean isAscii = seedTypeSpinner.getSelectedItemPosition() == 1;
             int digits;
             try {
                 digits = Integer.parseInt(profDigit.getText().toString());
             } catch (NumberFormatException exception) {
                 digits = 0;
             }
-            if (hexadecimalSeed) {
+            if (isHexadecimal) {
                 try {
                     if (seed.length() % 2 != 0 || seed.length() == 0) {
                         throw new NumberFormatException();
@@ -98,13 +99,19 @@ public class ProfileSetup extends AppCompatActivity {
                     builder.show();
                     return;
                 }
-            } else {
+            } else if (isAscii) {
                 StringBuilder newSeed = new StringBuilder();
                 for (int i = 0; i < seed.length(); i++) {
                     newSeed.append(Integer.toHexString(seed.charAt(i)));
                 }
 
                 seed = newSeed.toString();
+            } else {
+                // 32
+                seed = Base32Decoder.bytesToHex(Base32Decoder.decode(seed));
+                if (seed.isEmpty()) {
+                    throw new NumberFormatException();
+                }
             }
 
             if (digits <= 0 || digits >= 10) {
