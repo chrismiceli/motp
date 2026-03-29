@@ -1,3 +1,10 @@
+/*
+ * Copyright 2026 Chris Miceli and Michael Miceli
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ */
+
 import org.cry.otp.Base32Decoder;
 import org.cry.otp.TOTP;
 import org.junit.Assert;

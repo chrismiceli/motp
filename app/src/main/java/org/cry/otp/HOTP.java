@@ -1,4 +1,11 @@
-// "derived from OATH HOTP algorithm"
+/*
+ * Copyright 2026 Chris Miceli and Michael Miceli
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ *
+ * Derived from OATH HOTP Algorithm https://tools.ietf.org/html/rfc4226
+ */
 
 package org.cry.otp;
 
@@ -8,6 +15,9 @@ import java.security.NoSuchAlgorithmException;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
+/***
+ * Derived from OATH HOTP Algorithm: <a href="https://tools.ietf.org/html/rfc4226">RFC4226</a>
+ */
 class HOTP {
 
     private static byte[] hmac_sha1(byte[] keyBytes, byte[] text)
