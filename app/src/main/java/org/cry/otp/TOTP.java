@@ -1,3 +1,10 @@
+/*
+ * Copyright 2026 Chris Miceli and Michael Miceli
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ */
+
 package org.cry.otp;
 
 import java.lang.reflect.UndeclaredThrowableException;
@@ -8,12 +15,15 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
- * This an example implementation of the OATH TOTP algorithm. Visit
- * www.openauthentication.org for more information. There have been
- * modifications to work within the mOTP framework for OTPs by Chris Miceli
- *
- * Standard Java implementation from RFC 6238
- * @author Johan Rydell, PortWise, Inc.
+ * Implementation of TOTP: Time-Based One-Time Password Algorithm derived from RFC 6238.
+ * Copyright (c) 2011 IETF Trust and the persons identified as the document authors.
+ * All rights reserved.
+ * Redistribution and use in source and binary forms, with or without modification, is permitted
+ * pursuant to, and subject to the license terms contained in the Simplified BSD License set forth
+ * in Section 4.c of the IETF Trust's Legal Provisions Relating to IETF Documents
+ * (http://trustee.ietf.org/license-info)
+ * This code was derived from IETF RFC 6238. Please reproduce this note if possible.
+ * @author Johan Rydell, PortWise, Inc., Chris Miceli, Michael Miceli
  */
 public class TOTP {
 
