@@ -80,10 +80,15 @@ public class Base32Decoder {
 
     public static String bytesToHex(byte[] bytes) {
         char[] hexChars = new char[bytes.length * 2];
-        for (int j = 0; j < bytes.length; j++) {
-            int v = bytes[j] & 0xFF; // Mask to handle signed bytes
-            hexChars[j * 2] = HEX_ARRAY[v >>> 4];
-            hexChars[j * 2 + 1] = HEX_ARRAY[v & 0x0F];
+        try {
+            for (int j = 0; j < bytes.length; j++) {
+                int v = bytes[j] & 0xFF; // Mask to handle signed bytes
+                hexChars[j * 2] = HEX_ARRAY[v >>> 4];
+                hexChars[j * 2 + 1] = HEX_ARRAY[v & 0x0F];
+            }
+        } catch (Exception e)
+        {
+            // do return empty string.
         }
 
         return new String(hexChars);

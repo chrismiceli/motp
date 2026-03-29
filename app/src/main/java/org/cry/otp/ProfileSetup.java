@@ -142,7 +142,6 @@ public class ProfileSetup extends AppCompatActivity {
             }
             boolean isHexadecimal = seedTypeSpinner.getSelectedItemPosition() == 0;
             boolean isAscii = seedTypeSpinner.getSelectedItemPosition() == 1;
-            boolean isBase32 = seedTypeSpinner.getSelectedItemPosition() == 2;
             int timeInterval = timeIntervalSpinner.getSelectedItemPosition() == 0 ? 30 : 60;
             if (digits <= 0 || digits >= 10) {
                 builder.setTitle(R.string.error_title);
@@ -180,8 +179,11 @@ public class ProfileSetup extends AppCompatActivity {
 
                 seed = newSeed.toString();
             } else {
-                // base32
+                // 32
                 seed = Base32Decoder.bytesToHex(Base32Decoder.decode(seed));
+                if (seed.isEmpty()) {
+                    throw new NumberFormatException();
+                }
             }
 
             if (checkIfInDatabase(name)) {
