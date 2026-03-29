@@ -9,7 +9,7 @@ android {
         applicationId "org.cry.otp"
         minSdkVersion 21
         targetSdkVersion 36
-        versionCode 28
+        versionCode 29
         versionName "4"
     }
 
