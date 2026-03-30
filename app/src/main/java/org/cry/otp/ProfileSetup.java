@@ -110,8 +110,11 @@ public class ProfileSetup extends AppCompatActivity {
                 // 32
                 seed = Base32Decoder.bytesToHex(Base32Decoder.decode(seed));
                 if (seed.isEmpty()) {
-                    throw new NumberFormatException();
-                }
+                    builder.setTitle(R.string.error_title);
+                    builder.setMessage(R.string.base32_seed_error);
+                    builder.setPositiveButton(getString(R.string.ok), null);
+                    builder.show();
+                    return;}
             }
 
             if (digits <= 0 || digits >= 10) {
@@ -196,7 +199,11 @@ public class ProfileSetup extends AppCompatActivity {
                 // 32
                 seed = Base32Decoder.bytesToHex(Base32Decoder.decode(seed));
                 if (seed.isEmpty()) {
-                    throw new NumberFormatException();
+                    builder.setTitle(R.string.error_title);
+                    builder.setMessage(R.string.base32_seed_error);
+                    builder.setPositiveButton(getString(R.string.ok), null);
+                    builder.show();
+                    return;
                 }
             }
 
