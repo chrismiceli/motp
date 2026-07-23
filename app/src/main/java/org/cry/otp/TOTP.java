@@ -39,17 +39,19 @@ public class TOTP {
      * @param keyBytes the bytes to use for the HMAC key
      * @param text     the message or text to be authenticated.
      */
-    private static byte[] hmac_sha(String crypto, byte[] keyBytes, byte[] text) {
-        try {
-            Mac hmac;
-            hmac = Mac.getInstance(crypto);
-            SecretKeySpec macKey = new SecretKeySpec(keyBytes, "RAW");
-            hmac.init(macKey);
+private static byte[] hmac_sha(String crypto, byte[] keyBytes, byte[] text) {
+    try {
+        Mac hmac;
+        hmac = Mac.getInstance(crypto);
+        SecretKeySpec macKey = new SecretKeySpec(keyBytes, "RAW");
+        hmac.init(macKey);
+        synchronized (hmac) {
             return hmac.doFinal(text);
-        } catch (GeneralSecurityException gse) {
-            throw new UndeclaredThrowableException(gse);
         }
+    } catch (GeneralSecurityException gse) {
+        throw new UndeclaredThrowableException(gse);
     }
+}
 
     /**
      * This method converts HEX string to Byte[]
