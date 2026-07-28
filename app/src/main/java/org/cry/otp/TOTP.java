@@ -28,29 +28,20 @@ import javax.crypto.spec.SecretKeySpec;
 public class TOTP {
 
     private TOTP() {
-    }
-
-    /**
-     * This method uses the JCE to provide the crypto algorithm. HMAC computes a
-     * Hashed Message Authentication Code with the crypto hash algorithm as a
-     * parameter.
-     *
-     * @param crypto   the crypto algorithm (HmacSHA1, HmacSHA256, HmacSHA512)
-     * @param keyBytes the bytes to use for the HMAC key
-     * @param text     the message or text to be authenticated.
-     */
 private static byte[] hmac_sha(String crypto, byte[] keyBytes, byte[] text) {
     try {
-        Mac hmac;
-        hmac = Mac.getInstance(crypto);
+        Mac hmac = Mac.getInstance(crypto);
         SecretKeySpec macKey = new SecretKeySpec(keyBytes, "RAW");
         hmac.init(macKey);
+
+        // Acquire the lock on the hmac object before returning the result
         synchronized (hmac) {
             return hmac.doFinal(text);
         }
     } catch (GeneralSecurityException gse) {
         throw new UndeclaredThrowableException(gse);
     }
+}
 }
 
     /**
